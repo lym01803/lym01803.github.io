@@ -4,13 +4,19 @@
   
     
     <entry>
-      <title>title</title>
+      <title>Hello world!</title>
       <link href="/2019/03/19/title/"/>
       <url>/2019/03/19/title/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>Hello world!</p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> none </tag>
+            
+        </tags>
       
     </entry>
     
