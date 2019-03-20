@@ -4,19 +4,13 @@
   
     
     <entry>
-      <title>Hello world!</title>
-      <link href="/2019/03/19/title/"/>
-      <url>/2019/03/19/title/</url>
+      <title>20190312----一道程设作业题挖的坑</title>
+      <link href="/2019/03/20/article0001/"/>
+      <url>/2019/03/20/article0001/</url>
       
-        <content type="html"><![CDATA[<p>Hello world!</p>]]></content>
+        <content type="html"><![CDATA[<p><br><br><div class="row">    <embed src="}&lt;br&gt;&lt;br&gt;&lt;/p&gt;" width="100%" height="550" type="application/pdf"></div></p>]]></content>
       
       
-      
-        <tags>
-            
-            <tag> none </tag>
-            
-        </tags>
       
     </entry>
     
