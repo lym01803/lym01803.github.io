@@ -6,10 +6,8 @@
     <meta charset="utf-8">
     <meta name="keywords" content="浅谈FFT, BLOG">
     <meta name="description" content="传送门
-#基础知识浅谈
-##FFT—快速傅里叶变换
-###基本功能在O( (n+m)log(n+m) )的时间复杂度内计算：n次多项式乘m次多项式.
-实现方式欲求多项式A_多项式B：1.对多项式A，B分别进行快速傅里叶变换,得到A1,B1;">
+基础知识浅谈FFT—快速傅里叶变换基本功能在O( (n+m)log(n+m) )的时间复杂度内计算：n次多项式乘m次多项式.
+实现方式欲求多项式A_多项式B：1.对多项式A，B分别进行快速傅里叶变换,得到A1,B1;2.将A1,B1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -436,26 +434,20 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p><a href="https://blog.csdn.net/lym01803/article/details/62891985" target="_blank" rel="noopener">传送门</a></p>
-<p>#<strong>基础知识浅谈</strong></p>
-<p>##<strong>FFT—快速傅里叶变换</strong></p>
-<p>###<strong>基本功能</strong><br>在O( (n+m)log(n+m) )的时间复杂度内计算：n次多项式乘m次多项式.</p>
-<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a><strong>实现方式</strong></h3><p>欲求多项式A_多项式B：<br>1.对多项式A，B分别进行快速傅里叶变换,得到A1,B1;<br>2.将A1,B1的<strong>对应项</strong>相乘得到多项式C1.即：C1[i]=A1[i]_B1[i]  其中C1[i]表示C1的第i项系数.<br>3.将多项式C1进行逆变换得到多项式C.则多项式C即是多项式A与多项式B相乘的结果.<br>具体证明这里不多说了.</p>
-<p>##<strong>NTT—快速数论变换</strong></p>
-<p>###<strong>基本功能</strong><br>与FFT类似，但没有精度差.</p>
-<p>###<strong>实现方式</strong><br>与FFT类似，只是用数论原根的幂代替FFT中的w[n].</p>
-<p>####<strong>原根的含义及求法</strong><br>根据欧拉定理，若a,p互质则有：<br>$$a^{\phi(p)}≡1\  \ (mod\ \ p)$$<br>如果当且仅当$x=\phi(p)$ 时$$a^{x}≡1\ \ (mod\ \ p)$$<br>则a是p的一个原根.<br>用更专业的语言来描述即：a模p的阶等于$\phi(p)$ 则a是p的原根.<br>原根的求法：没有什么特别的方法，只能暴力枚举，验证时略有技巧，这里就不细说了.</p>
-<p>##<strong>关于NTT算法的一些说明</strong></p>
-<p>###<strong>优点</strong><br>相比起FFT来说，NTT最显著的优势在于没有精度差.由于FFT会用到complex double ,在大数据下不排除出现精度差的可能.在某些评测机上，效率可能不如NTT.(NTT虽然不用复数运算，但是取模很多).</p>
-<p>###<strong>限制</strong><br>相比起FFT来说,NTT的限制很多.</p>
+<h2 id="基础知识浅谈"><a href="#基础知识浅谈" class="headerlink" title="基础知识浅谈"></a><strong>基础知识浅谈</strong></h2><h3 id="FFT—快速傅里叶变换"><a href="#FFT—快速傅里叶变换" class="headerlink" title="FFT—快速傅里叶变换"></a><strong>FFT—快速傅里叶变换</strong></h3><h4 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a><strong>基本功能</strong></h4><p>在O( (n+m)log(n+m) )的时间复杂度内计算：n次多项式乘m次多项式.</p>
+<h4 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a><strong>实现方式</strong></h4><p>欲求多项式A_多项式B：<br>1.对多项式A，B分别进行快速傅里叶变换,得到A1,B1;<br>2.将A1,B1的<strong>对应项</strong>相乘得到多项式C1.即：C1[i]=A1[i]_B1[i]  其中C1[i]表示C1的第i项系数.<br>3.将多项式C1进行逆变换得到多项式C.则多项式C即是多项式A与多项式B相乘的结果.<br>具体证明这里不多说了.</p>
+<h3 id="NTT—快速数论变换"><a href="#NTT—快速数论变换" class="headerlink" title="NTT—快速数论变换"></a><strong>NTT—快速数论变换</strong></h3><h4 id="基本功能-1"><a href="#基本功能-1" class="headerlink" title="基本功能"></a><strong>基本功能</strong></h4><p>与FFT类似，但没有精度差.</p>
+<h4 id="实现方式-1"><a href="#实现方式-1" class="headerlink" title="实现方式"></a><strong>实现方式</strong></h4><p>与FFT类似，只是用数论原根的幂代替FFT中的w[n].</p>
+<h5 id="原根的含义及求法"><a href="#原根的含义及求法" class="headerlink" title="原根的含义及求法"></a><strong>原根的含义及求法</strong></h5><p>根据欧拉定理，若a,p互质则有：<br>$$a^{\phi(p)}≡1\  \ (mod\ \ p)$$<br>如果当且仅当$x=\phi(p)$ 时$$a^{x}≡1\ \ (mod\ \ p)$$<br>则a是p的一个原根.<br>用更专业的语言来描述即：a模p的阶等于$\phi(p)$ 则a是p的原根.<br>原根的求法：没有什么特别的方法，只能暴力枚举，验证时略有技巧，这里就不细说了.</p>
+<h3 id="关于NTT算法的一些说明"><a href="#关于NTT算法的一些说明" class="headerlink" title="关于NTT算法的一些说明"></a><strong>关于NTT算法的一些说明</strong></h3><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h3><p>相比起FFT来说，NTT最显著的优势在于没有精度差.由于FFT会用到complex double ,在大数据下不排除出现精度差的可能.在某些评测机上，效率可能不如NTT.(NTT虽然不用复数运算，但是取模很多).</p>
+<h4 id="限制"><a href="#限制" class="headerlink" title="限制"></a><strong>限制</strong></h4><p>相比起FFT来说,NTT的限制很多.</p>
 <ul>
 <li>所求的多项式要求是整系数</li>
 <li>如果题目要求结果对质数p取模,这个质数往往只能是998244353，否则会有很多麻烦，这个会在后面谈到.</li>
 <li>所求多项式的项数应在$2^{23}$ 之内,因为$998244353=7_17_2^{23}+1$ </li>
 <li>结果的系数不应超过质数P.(P是自己选择的质数,一般定为P=998244353)</li>
 </ul>
-<p>##<strong>具体代码实现</strong></p>
-<p>###<strong>FFT模板</strong></p>
-<pre><code>const double pi=3.1415926535897932384626433832795;
+<h3 id="具体代码实现"><a href="#具体代码实现" class="headerlink" title="具体代码实现"></a><strong>具体代码实现</strong></h3><h4 id="FFT模板"><a href="#FFT模板" class="headerlink" title="FFT模板"></a><strong>FFT模板</strong></h4><pre><code>const double pi=3.1415926535897932384626433832795;
 complex&lt;double&gt;Wi[MAXN];
 char s[MAXN],t[MAXN];
 void FFT(complex&lt;double&gt; A[],int nn,int ty)
@@ -488,8 +480,7 @@ void FFT(complex&lt;double&gt; A[],int nn,int ty)
     for(i=0;i&lt;nn;i++)
         A[i]*=t0;
 }
-</code></pre><p>###<strong>NTT模板</strong></p>
-<pre><code>const int P=998244353;
+</code></pre><h4 id="NTT模板"><a href="#NTT模板" class="headerlink" title="NTT模板"></a><strong>NTT模板</strong></h4><pre><code>const int P=998244353;
 const int g=3;//P的原根
 int W[MAXN];
 int exp(int a,int k)
@@ -549,15 +540,11 @@ void NTT(int A[],int nn,int ty)
     }
     return ;
 }
-</code></pre><p>#<strong>FFT及NTT的简单应用</strong></p>
-<p>##<strong>最基本应用–高精度乘法</strong><br>将十进制数看成一个多项式,然后利用FFT或NTT求解.(注意进位).<br>比如：<br>123_456=56088可以看成:<br>$$123=1_10^{2}+2_10^{1}+3_10^{0}$$<br>$$456=4_10^{2}+5_10^{1}+6_10^{0}$$<br>$$123_456=4_10^{4}+13_10^{3}+28_10^{2}+27_10^{1}+18_10^{0}$$<br>考虑进位则有：<br>$$123_456=5_10^{4}+6_10^{3}+0_10^{2}+8_10^{1}+8*10^{0}=56088$$</p>
-<p>##<strong>稍微高端一点的应用</strong></p>
-<p>###<strong>特殊的计数问题</strong></p>
-<p>####题目大意<br>给出两个长度分别为n,m的01序列A、B，有Q次询问，每次询问要求回答：当把A的第i位和B的第j位对齐时，A,B公共部分有多少对对齐且相同的数.<br>如：<br>输入n,m,A串,B串,Q,每次询问(i,j)<br>6 6<br>000111<br>111100<br>3<br>1 1<br>1 2<br>4 2<br>输出每次询问的答案:<br>1<br>0<br>3</p>
-<p>####数据范围:<br>n&lt;=100000,Q&lt;=1000000</p>
-<p>####解题方法<br>注意到所有询问总共只有2n-1种本质不同的询问,我们希望预处理出所有这些本质不同的询问的答案.<br>比如询问为(i,j)我们可以等价转化为(1,j-i)，因此我们不妨将询问设为(1,k)<br>我们先考虑有多少位上的1是对齐的：<br>其实两个位置上的1对齐,当且仅当两个位置都是1,且两个位置相差k-1.<br>如果将其中一个序列倒序排列的话，那么两个之前对齐的位置现在的位置标号之和就是定值了.于是就可以构造多项式进行计数.<br>这之后，我们将所有0，1取反,就可以同样计算出有多少位0是对齐的.</p>
-<p>####参考代码</p>
-<pre><code>#include&lt;cstdio&gt;
+</code></pre><h2 id="FFT及NTT的简单应用"><a href="#FFT及NTT的简单应用" class="headerlink" title="FFT及NTT的简单应用"></a><strong>FFT及NTT的简单应用</strong></h2><h3 id="最基本应用–高精度乘法"><a href="#最基本应用–高精度乘法" class="headerlink" title="最基本应用–高精度乘法"></a><strong>最基本应用–高精度乘法</strong></h3><p>将十进制数看成一个多项式,然后利用FFT或NTT求解.(注意进位).<br>比如：<br>123_456=56088可以看成:<br>$$123=1_10^{2}+2_10^{1}+3_10^{0}$$<br>$$456=4_10^{2}+5_10^{1}+6_10^{0}$$<br>$$123_456=4_10^{4}+13_10^{3}+28_10^{2}+27_10^{1}+18_10^{0}$$<br>考虑进位则有：<br>$$123_456=5_10^{4}+6_10^{3}+0_10^{2}+8_10^{1}+8*10^{0}=56088$$</p>
+<h3 id="稍微高端一点的应用"><a href="#稍微高端一点的应用" class="headerlink" title="稍微高端一点的应用"></a><strong>稍微高端一点的应用</strong></h3><h4 id="特殊的计数问题"><a href="#特殊的计数问题" class="headerlink" title="特殊的计数问题"></a><strong>特殊的计数问题</strong></h4><h5 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h5><p>给出两个长度分别为n,m的01序列A、B，有Q次询问，每次询问要求回答：当把A的第i位和B的第j位对齐时，A,B公共部分有多少对对齐且相同的数.<br>如：<br>输入n,m,A串,B串,Q,每次询问(i,j)<br>6 6<br>000111<br>111100<br>3<br>1 1<br>1 2<br>4 2<br>输出每次询问的答案:<br>1<br>0<br>3</p>
+<h5 id="数据范围"><a href="#数据范围" class="headerlink" title="数据范围:"></a>数据范围:</h5><p>n&lt;=100000,Q&lt;=1000000</p>
+<h5 id="解题方法"><a href="#解题方法" class="headerlink" title="解题方法"></a>解题方法</h5><p>注意到所有询问总共只有2n-1种本质不同的询问,我们希望预处理出所有这些本质不同的询问的答案.<br>比如询问为(i,j)我们可以等价转化为(1,j-i)，因此我们不妨将询问设为(1,k)<br>我们先考虑有多少位上的1是对齐的：<br>其实两个位置上的1对齐,当且仅当两个位置都是1,且两个位置相差k-1.<br>如果将其中一个序列倒序排列的话，那么两个之前对齐的位置现在的位置标号之和就是定值了.于是就可以构造多项式进行计数.<br>这之后，我们将所有0，1取反,就可以同样计算出有多少位0是对齐的.</p>
+<h5 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h5><pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt; 
 #define MAXN 425000
 const int P=998244353;
@@ -734,9 +721,7 @@ int main()
     return 0;
 } 
 </code></pre><p>还有一道很牛逼的题目—万径人踪灭,也用到了这个方法.</p>
-<p>#<strong>NTT&amp;FFT与多项式问题</strong></p>
-<p>##<strong>相关知识</strong></p>
-<ul>
+<h2 id="NTT-amp-FFT与多项式问题"><a href="#NTT-amp-FFT与多项式问题" class="headerlink" title="NTT&amp;FFT与多项式问题"></a><strong>NTT&amp;FFT与多项式问题</strong></h2><h3 id="相关知识"><a href="#相关知识" class="headerlink" title="相关知识"></a><strong>相关知识</strong></h3><ul>
 <li>多项式求逆</li>
 <li>多项式除法</li>
 <li>多项式取模</li>
@@ -746,19 +731,17 @@ int main()
 <li>………………</li>
 </ul>
 <p>这些东西本人也是一知半解，具体算法的证明过程，代码实现可以参考网上的其他博客。这里给一个参考的链接(_加载非常慢，但内容非常好，如有需要请耐心等待_):<a href="http://picks.logdown.com/posts/197262-polynomial-division" target="_blank" rel="noopener">http://picks.logdown.com/posts/197262-polynomial-division</a></p>
-<p>###<strong>简单地谈一谈</strong></p>
-<p>####<strong>多项式求逆</strong><br>已知多项式A,欲求多项式B,使$A_ B≡1\ (mod\  x^{n})$.<br>首先,常数项取$B[0]=A[0]^{-1}$<br>假如我们已经得到B’，使得$A_B’≡1\ (mod\ x^{n})$,欲求B使得$A_B≡1\ (mod\ x^{2n})$<br>那么有$$A_(B-B’)≡0\ (mod\ x^n)$$<br>于是$$B-B’≡0\ (mod\ x^n)$$<br>平方$$B^2+B’^2-2B_B’≡0\ (mod\ x^{2n})$$<br>同时乘A得$$A_B^2+A_B’^2-2A_B_B’≡0\ (mod\ x^{2n})$$<br>即$$B+A_B’^2-2B’≡0\ (mod\ x^{2n})$$<br>于是得到$$B≡2B’-A*B’^2\ (mod\ x^{2n})$$<br>这里用到了倍增的思想.<br>多项式开方与之类似.<br>时间复杂度$$T(n)=T(n/2)+O(nlog\ n),即O(nlog\ n)$$</p>
-<p>##<strong>一些典型题目</strong></p>
-<p>###<strong>贝壳串</strong><br>【问题描述】<br>海边市场有长度分别为1到n的贝壳串出售，其中长度为i的贝壳串有a[i]种，每种贝壳串有无限个，问用这些贝壳串链接成长度为n的串有多少种方案?</p>
+<h3 id="简单地谈一谈"><a href="#简单地谈一谈" class="headerlink" title="简单地谈一谈"></a><strong>简单地谈一谈</strong></h3><h4 id="多项式求逆"><a href="#多项式求逆" class="headerlink" title="多项式求逆"></a><strong>多项式求逆</strong></h4><p>已知多项式A,欲求多项式B,使$A_ B≡1\ (mod\  x^{n})$.<br>首先,常数项取$B[0]=A[0]^{-1}$<br>假如我们已经得到B’，使得$A_B’≡1\ (mod\ x^{n})$,欲求B使得$A_B≡1\ (mod\ x^{2n})$<br>那么有$$A_(B-B’)≡0\ (mod\ x^n)$$<br>于是$$B-B’≡0\ (mod\ x^n)$$<br>平方$$B^2+B’^2-2B_B’≡0\ (mod\ x^{2n})$$<br>同时乘A得$$A_B^2+A_B’^2-2A_B_B’≡0\ (mod\ x^{2n})$$<br>即$$B+A_B’^2-2B’≡0\ (mod\ x^{2n})$$<br>于是得到$$B≡2B’-A*B’^2\ (mod\ x^{2n})$$<br>这里用到了倍增的思想.<br>多项式开方与之类似.<br>时间复杂度$$T(n)=T(n/2)+O(nlog\ n),即O(nlog\ n)$$</p>
+<h2 id="一些典型题目"><a href="#一些典型题目" class="headerlink" title="一些典型题目"></a><strong>一些典型题目</strong></h2><h3 id="贝壳串"><a href="#贝壳串" class="headerlink" title="贝壳串"></a><strong>贝壳串</strong></h3><p>【问题描述】<br>海边市场有长度分别为1到n的贝壳串出售，其中长度为i的贝壳串有a[i]种，每种贝壳串有无限个，问用这些贝壳串链接成长度为n的串有多少种方案?</p>
 <p>【输入格式】<br>第一行，一整数n，<br>第二行，n个整数ai表示长度为i的贝壳串的种类数</p>
 <p>【输出格式】<br>输出方案数，结果模313</p>
 <p>【输入输出样例】<br>in<br>3<br>1 3 7<br>out<br>14</p>
 <p>in<br>4<br>2 2 2 2<br>out<br>54</p>
 <p>int<br>7<br>86 58 87 145 510 32 263<br>out<br>152<br>【数据范围】<br>对于50%的数据n&lt;=1000<br>对于100%的数据n&lt;=100000，0&lt;=ai&lt;=10000000</p>
-<p>####<strong>官方题解</strong><br>FFT+分治</p>
-<p>####<strong>另解</strong><br>FFT+多项式求逆</p>
-<p>####<strong>然而我是一个异端</strong><br>题目要求对<strong>313</strong>取模,本是断绝了NTT的路,但我硬是强用NTT把这个题过了！<br>做法非常的<strong>“淫荡”</strong>.为此我专门写了一篇题解：</p>
-<p>####<strong>另类题解</strong><br>【贝壳串shell】的另类解法—-<strong>强行NTT</strong>.</p>
+<h4 id="官方题解"><a href="#官方题解" class="headerlink" title="官方题解"></a><strong>官方题解</strong></h4><p>FFT+分治</p>
+<h4 id="另解"><a href="#另解" class="headerlink" title="另解"></a><strong>另解</strong></h4><p>FFT+多项式求逆</p>
+<h4 id="然而我是一个异端"><a href="#然而我是一个异端" class="headerlink" title="然而我是一个异端"></a><strong>然而我是一个异端</strong></h4><p>题目要求对<strong>313</strong>取模,本是断绝了NTT的路,但我硬是强用NTT把这个题过了！<br>做法非常的<strong>“淫荡”</strong>.为此我专门写了一篇题解：</p>
+<h4 id="另类题解"><a href="#另类题解" class="headerlink" title="另类题解"></a><strong>另类题解</strong></h4><p>【贝壳串shell】的另类解法—-<strong>强行NTT</strong>.</p>
 <p>1.DP方程<br>设f[i]为配成长度为i的项链的方案数,a[i]表示长度为i的贝壳的种类数.<br>枚举最后一串贝壳的长度,可得转移方程：<br>$$f[i]=\sum_{i=1}^{n}f[n-i]\cdot a[i]$$<br>并规定$f[0]=1$.<br>直接暴力DP可以拿到50分.</p>
 <p>2.构造母函数<br>$$F(x)=\sum_{i=0}^{+∞}f[i]\cdot x^i\ \ \ \ \ \ \ \ A(x)=\sum_{i=0}^{+∞}a[i]\cdot x^i$$<br>于是根据dp方程有:$$F(x)=F(x)*A(x)+1$$<br>等价于:$$F(x)=\frac{1}{1-A(x)}$$<br>到此为止用FFT就足以解决问题了.</p>
 <p><strong>3.强用NTT</strong><br>我们知道，多项式求逆需要多次使用NTT，这样不可避免地会使系数对质数P(P=998244353)取模.但是题目要求对313取模,这样得到的答案就不对了.</p>
@@ -983,13 +966,13 @@ int main()
 }
 </code></pre><p>上面的代码很乱，是考场上写的，有很多冗余的变量，将就了看吧.<br>对了,忘记说了，P取得相当大，用中国剩余定理的时候，乘法要用快速乘，不然会超long long.</p>
 <hr>
-<p>###小朋友与二叉树<br>题目描述参见bzoj 3625 / Codeforces Round #250</p>
-<p>####<strong>题解</strong><br>这道题是一个计数问题，容易想到dp的做法.<br>设f[n]表示点权和为n的二叉树有多少种.考虑n的组成：<br>左子树点权和+右子树点权和+根节点权值=n.<br>设权值为k的数给定序列中出现次数为c[k],则根据分步计数原理：<br>$$f[n]=\sum _{i+j+k=n}f[i]\cdot f[j]\cdot c[k]$$<br>构造多项式：<br>$$F(x)=\sum _{i=0}^{+∞}f[i]\cdot x^i\ \ \ \ \ \ C(x)=\sum_{i=0}^{+∞}c[i]\cdot x^i$$<br>则有:<br>$$F(x)=F(x)_F(x)_C(x)$$<br>???有诈!!!<br>我们在递推式中默认F(0)=f[0]=1.这样才可以包含子树为空的情形.但是C(0)=c[0]=0.<br>于是F(0)=F(0)_F(0)\_C(0)=C(0)=0,推出矛盾！<br>所以正确的式子：<br>$$F(x)=F(x)_F(x)_C(x)+1$$<br>解得:<br>$$F(x)=\frac {1±\sqrt{1-4C(x)}}{2C(x)}$$<br>这种方程真的能这么解吗？其实只需要知道，把这个解代入原方程，方程肯定成立.我能解释的也只有这么多了.<br>注意到,分母没有常数项，分子要整除分母，则分子也不能有常数项，即±应取负号.<br>为了简单，再做一下变形：<br>$$F(x)=\frac{1±\sqrt{1-4C(x)}}{2C(x)}=\frac{2}{1+\sqrt{1-4C(x)}}$$<br>用多项式开方即可.</p>
-<p>####<strong>参考代码</strong><br>算了，这题我就不给代码了！本人2017年3月1日在bzoj提交了这道题，并在当时莫名其妙地超过了各位大牛,拿到了rank 1.如果放出代码，rank 1岂不是保不住了！！！</p>
+<h3 id="小朋友与二叉树"><a href="#小朋友与二叉树" class="headerlink" title="小朋友与二叉树"></a>小朋友与二叉树</h3><p>题目描述参见bzoj 3625 / Codeforces Round #250</p>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a><strong>题解</strong></h4><p>这道题是一个计数问题，容易想到dp的做法.<br>设f[n]表示点权和为n的二叉树有多少种.考虑n的组成：<br>左子树点权和+右子树点权和+根节点权值=n.<br>设权值为k的数给定序列中出现次数为c[k],则根据分步计数原理：<br>$$f[n]=\sum _{i+j+k=n}f[i]\cdot f[j]\cdot c[k]$$<br>构造多项式：<br>$$F(x)=\sum _{i=0}^{+∞}f[i]\cdot x^i\ \ \ \ \ \ C(x)=\sum_{i=0}^{+∞}c[i]\cdot x^i$$<br>则有:<br>$$F(x)=F(x)_F(x)_C(x)$$<br>???有诈!!!<br>我们在递推式中默认F(0)=f[0]=1.这样才可以包含子树为空的情形.但是C(0)=c[0]=0.<br>于是F(0)=F(0)_F(0)\_C(0)=C(0)=0,推出矛盾！<br>所以正确的式子：<br>$$F(x)=F(x)_F(x)_C(x)+1$$<br>解得:<br>$$F(x)=\frac {1±\sqrt{1-4C(x)}}{2C(x)}$$<br>这种方程真的能这么解吗？其实只需要知道，把这个解代入原方程，方程肯定成立.我能解释的也只有这么多了.<br>注意到,分母没有常数项，分子要整除分母，则分子也不能有常数项，即±应取负号.<br>为了简单，再做一下变形：<br>$$F(x)=\frac{1±\sqrt{1-4C(x)}}{2C(x)}=\frac{2}{1+\sqrt{1-4C(x)}}$$<br>用多项式开方即可.</p>
+<h4 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a><strong>参考代码</strong></h4><p>算了，这题我就不给代码了！本人2017年3月1日在bzoj提交了这道题，并在当时莫名其妙地超过了各位大牛,拿到了rank 1.如果放出代码，rank 1岂不是保不住了！！！</p>
 <hr>
-<p>###<strong>bzoj 4555</strong><br>第二类斯特林数</p>
+<h3 id="bzoj-4555"><a href="#bzoj-4555" class="headerlink" title="bzoj 4555"></a><strong>bzoj 4555</strong></h3><p>第二类斯特林数</p>
 <p>这个题目做法很多,NTT+分治或者多项式求逆都可以做.<br>只要式子化得好,直接上裸的NTT也是可以做的.<br>网上题解很多，这里就不多说了.</p>
-<p>####<strong>参考代码</strong>(不用求逆或分治的常数最小的版本)<br>这个做法的数学推导比较妙，建议先学习一下第二类斯特林数的展开式.</p>
+<h4 id="参考代码-不用求逆或分治的常数最小的版本"><a href="#参考代码-不用求逆或分治的常数最小的版本" class="headerlink" title="参考代码(不用求逆或分治的常数最小的版本)"></a><strong>参考代码</strong>(不用求逆或分治的常数最小的版本)</h4><p>这个做法的数学推导比较妙，建议先学习一下第二类斯特林数的展开式.</p>
 <pre><code>#include&lt;cstdio&gt;
 #define MAXN 410000
 #define P 998244353
@@ -1111,25 +1094,20 @@ int main()
     return 0;
 }
 </code></pre><hr>
-<p>###<strong>【SDOI2013 R1 Day2】淘金</strong></p>
-<p>####题目来源：sdoi 2013             </p>
-<p>####题号：bzoj 3131</p>
-<p>####题目描述<br>小Z在玩一个叫做《淘金者》的游戏。游戏的世界是一个二维坐标。X轴、Y轴坐标范围均为1..N。初始的时候，所有的整数坐标点上均有一块金子，共N*N块。<br>一阵风吹过，金子的位置发生了一些变化。细心的小Z发现，初始在(i,j)坐标处的金子会变到(f(i),f(j))坐标处。其中f(x)表示x各位数字的乘积，例如f(99)=81，f(12)=2，f(10)=0。如果金子变化后的坐标不在1..N的范围内，我们认为这块金子已经被移出游戏。同时可以发现，对于变化之后的游戏局面，某些坐标上的金子数量可能不止一块，而另外一些坐标上可能已经没有金子。这次变化之后，游戏将不会再对金子的位置和数量进行改变，玩家可以开始进行采集工作。<br>小Z很懒，打算只进行K次采集。每次采集可以得到某一个坐标上的所有金子，采集之后，该坐标上的金子数变为0。<br>现在小Z希望知道，对于变化之后的游戏局面，在采集次数为K的前提下，最多可以采集到多少块金子？<br>答案可能很大，小Z希望得到对1000000007(10^9+7)取模之后的答案。</p>
-<p>####数据规模<br>$N\leq 10^{12},k\leq10^5.$</p>
-<p>####<strong>题解</strong></p>
-<p>#####一些简单的想法：</p>
-<ul>
+<h3 id="【SDOI2013-R1-Day2】淘金"><a href="#【SDOI2013-R1-Day2】淘金" class="headerlink" title="【SDOI2013 R1 Day2】淘金"></a><strong>【SDOI2013 R1 Day2】淘金</strong></h3><h4 id="题目来源：sdoi-2013"><a href="#题目来源：sdoi-2013" class="headerlink" title="题目来源：sdoi 2013"></a>题目来源：sdoi 2013</h4><h4 id="题号：bzoj-3131"><a href="#题号：bzoj-3131" class="headerlink" title="题号：bzoj 3131"></a>题号：bzoj 3131</h4><h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>小Z在玩一个叫做《淘金者》的游戏。游戏的世界是一个二维坐标。X轴、Y轴坐标范围均为1..N。初始的时候，所有的整数坐标点上均有一块金子，共N*N块。<br>一阵风吹过，金子的位置发生了一些变化。细心的小Z发现，初始在(i,j)坐标处的金子会变到(f(i),f(j))坐标处。其中f(x)表示x各位数字的乘积，例如f(99)=81，f(12)=2，f(10)=0。如果金子变化后的坐标不在1..N的范围内，我们认为这块金子已经被移出游戏。同时可以发现，对于变化之后的游戏局面，某些坐标上的金子数量可能不止一块，而另外一些坐标上可能已经没有金子。这次变化之后，游戏将不会再对金子的位置和数量进行改变，玩家可以开始进行采集工作。<br>小Z很懒，打算只进行K次采集。每次采集可以得到某一个坐标上的所有金子，采集之后，该坐标上的金子数变为0。<br>现在小Z希望知道，对于变化之后的游戏局面，在采集次数为K的前提下，最多可以采集到多少块金子？<br>答案可能很大，小Z希望得到对1000000007(10^9+7)取模之后的答案。</p>
+<h4 id="数据规模"><a href="#数据规模" class="headerlink" title="数据规模"></a>数据规模</h4><p>$N\leq 10^{12},k\leq10^5.$</p>
+<h4 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a><strong>题解</strong></h4><h5 id="一些简单的想法："><a href="#一些简单的想法：" class="headerlink" title="一些简单的想法："></a>一些简单的想法：</h5><ul>
 <li>处理出每个位置的金子数</li>
 <li>如果设g(x)表示所有满足f(i)=x的i的数目，那么(x,y)的金子数为g(x)*g(y)</li>
 <li>如果我们处理出了g(x)的值，那么这就是一个经典的用堆处理的问题了.</li>
-<li>处理g(x)应该可以用数位dp.<br>#####官方题解：数位dp+堆.<br>#####另一些想法：</li>
+<li>处理g(x)应该可以用数位dp.<h5 id="官方题解：数位dp-堆"><a href="#官方题解：数位dp-堆" class="headerlink" title="官方题解：数位dp+堆."></a>官方题解：数位dp+堆.</h5><h5 id="另一些想法："><a href="#另一些想法：" class="headerlink" title="另一些想法："></a>另一些想法：</h5></li>
 <li>是不是可以暴力求解g(x)?</li>
 <li>g(x)!=0,意味着$x=2^a_3^b_5^c*7^d$，这样的x并不多！</li>
 <li>如果$N\leq10^6$,我们暴力求解即可</li>
 <li>$N\leq10^{12},则N\leq10^6*10^6$我们暴力处理出$10^6$以内的g(x)，然后用NTT做一次乘法就可以得出$10^{12}$以内的g(x)了！</li>
 <li>显然x可以大到$9^{12}$,不过我们可以分解质因数用a,b,c,d存储.为了方便起见，估计a,b,c,d的最大值，然后采取合适的进制就可以了.</li>
 <li>于是这道题居然就可以用NTT+暴力就水过去了！</li>
-<li>当然这个乘法并不简单，考虑到数位dp的特点，我们在做乘法时要分有限制和无限制两部分,具体实现看代码吧<br>####<strong>参考代码</strong><br>丑的要命的代码：</li>
+<li>当然这个乘法并不简单，考虑到数位dp的特点，我们在做乘法时要分有限制和无限制两部分,具体实现看代码吧<h4 id="参考代码-2"><a href="#参考代码-2" class="headerlink" title="参考代码"></a><strong>参考代码</strong></h4>丑的要命的代码：</li>
 </ul>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;queue&gt;
@@ -1678,10 +1656,8 @@ int main()
                 </a>
                 <div class="card-content article-content">
                     <div class="summary">传送门
-#基础知识浅谈
-##FFT—快速傅里叶变换
-###基本功能在O( (n+m)log(n+m) )的时间复杂度内计算：n次多项式乘m次多项式.
-实现方式欲求多项式A_多项式B：1.对多项式A，B分别进行快速傅里叶变换,得到A1,B1;</div>
+基础知识浅谈FFT—快速傅里叶变换基本功能在O( (n+m)log(n+m) )的时间复杂度内计算：n次多项式乘m次多项式.
+实现方式欲求多项式A_多项式B：1.对多项式A，B分别进行快速傅里叶变换,得到A1,B1;2.将A1,B1</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-22
