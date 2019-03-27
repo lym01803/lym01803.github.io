@@ -4,9 +4,15 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="高中原创三题, BLOG">
-    <meta name="description" content="这里贴三道高中阶段原创数学试题(函数题,导数题): 命制时间分别是高一、高二和高三。
-1.高一时脑洞大开命制的题目$$\begin{align}   &amp;amp;已知函数f(x)=x^a\cdot\ln{x}-b,其中\ a&amp;gt;0,b&amp;g">
+    <meta name="keywords" content="article0006, BLOG">
+    <meta name="description" content="交大oj水题17道题解—-2019.03.27—-数据结构(俞勇班)第三次作业
+1005.数独1005
+题目大意检验数独的合法性，保证输入为1~9的整数
+题解暴力
+代码 
+#include 
+#include  
+int A[10][10]">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +20,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>高中原创三题 | BLOG</title>
+    <title>article0006 | BLOG</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -258,13 +264,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        高中原创三题
+                        article0006
                     </div>
                 </div>
             </div>
@@ -274,10 +280,99 @@
 
 
 
-<main class="container content">
+<main class="post-container content">
 
     
-    <!-- 文章内容详情 -->
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
@@ -286,16 +381,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/math/" target="_blank">
-                                <span class="chip bg-color">math</span>
+                            <a href="/tags/algorithm/" target="_blank">
+                                <span class="chip bg-color">algorithm</span>
                             </a>
                         
-                            <a href="/tags/high-school/" target="_blank">
-                                <span class="chip bg-color">high school</span>
-                            </a>
-                        
-                            <a href="/tags/原创/" target="_blank">
-                                <span class="chip bg-color">原创</span>
+                            <a href="/tags/c/" target="_blank">
+                                <span class="chip bg-color">c++</span>
                             </a>
                         
                     </div>
@@ -306,8 +397,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/math/" class="post-category" target="_blank">
-                                math
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                algorithm
                             </a>
                         
                     </div>
@@ -318,14 +409,14 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-03-22
+                    2019-03-27
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        358
+                        135
                     </div>
                     
 
@@ -343,10 +434,26 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>这里贴三道高中阶段原创数学试题(函数题,导数题): 命制时间分别是高一、高二和高三。</p>
-<p>1.高一时脑洞大开命制的题目<br>$$<br>\begin{align}<br>   &amp;已知函数f(x)=x^a\cdot\ln{x}-b,其中\ a&gt;0,b&gt;0.\\<br>   &amp;(1)记f(x)的单调递减区间为A,如果\forall u&gt;0, 函数g(x)=u^x-ux在区间A上单调递减,\\&amp;求a的取值范围;\\<br>   &amp;(2)若e^{2a}\cdot b^{a-1}&lt;1, 证明:\exists k\not=1,使得关于x的方程:f(kx)=k\cdot f(x)有解.<br>   \end{align}<br>$$</p>
-<p>2.高二时命制的题目,实际上并不算是一个导数题 _仿照2016年全国卷II –21题_<br>$$<br>\begin{align}<br>&amp;已知函数f(x)=x^2+\frac{1}{(x+a)^2},x\in[0,+\infty),其中\ a&gt;0.记f(x)的最小值为h(a).\\<br>&amp;(1)求h(a)的值域,并证明:h(1)&gt;\frac{1}{2};\\<br>&amp;(2)证明:h(a)&lt;4\cdot h(2a)\ .<br>\end{align}<br>$$</p>
-<p>3.仿照全国卷的风格，此题成于2018年6月7日晚，正是本人考完高考数学的那天晚上<br>$$<br>\begin{align}<br>&amp;已知函数f(x)=e^x-a(x+b)^2,其中\ a,b\in \bf R \rm, a&gt;0.\\<br>&amp;(1)证明:当关于x的方程f(x)=f(-x)有非零解时,ab&gt;\frac{1}{2};\\<br>&amp;(2)若f(x)有两个不等极值点x_1,x_2,证明:f\left(x+2\left|x_1-x_2\right|\right)&gt;f(x)\ .<br>\end{align}<br>$$</p>
+                <h1 id="交大oj水题17道题解—-2019-03-27"><a href="#交大oj水题17道题解—-2019-03-27" class="headerlink" title="交大oj水题17道题解—-2019.03.27"></a>交大oj水题17道题解—-2019.03.27</h1><p>—-数据结构(俞勇班)第三次作业</p>
+<h2 id="1005-数独"><a href="#1005-数独" class="headerlink" title="1005.数独"></a>1005.数独</h2><p><a href="https://acm.sjtu.edu.cn/OnlineJudge/problem/1005" target="_blank" rel="noopener">1005</a></p>
+<h3 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h3><p>检验数独的合法性，保证输入为1~9的整数</p>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>暴力</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre> <code class="c++">
+#include <cstdio>
+#include <cstring> 
+int A[10][10];
+int cnt[12];
+int X[9] = {0, 0, 0, 3, 3, 3, 6, 6, 6}, Y[9] = {0, 3, 6, 0, 3, 6, 0, 3, 6};
+int dx[9] = {0, 0, 0, 1, 1, 1, 2, 2, 2}, dy[9] = {0, 1, 2, 0, 1, 2, 0, 1, 2};
+bool judge1(int p)
+{
+    memset(cnt, 0, sizeof(cnt));
+    for(int i = 0; i < 9; ++i) ++cnt[A[p][i]];
+    for(int i = 1; i <= 9; ++i) if(cnt[i] !="1)" return 1; 0; } bool judge2(int p) { memset(cnt, 0, sizeof(cnt)); for(int i="0;" < ++cnt[a[i][p]]; judge3(int int xx="X[p]," yy="Y[p];" ++cnt[a[xx + dx[i]][yy+ dy[i]]]; void work() j="0;" ++j) scanf("%d", &a[i][j]); if(judge1(i) || judge2(i) judge3(i)) printf("wrong\n"); ; printf("right\n"); main() n; &n); work(); code> </=></cstring></cstdio></code></pre>
+
+
+
+
 
             </div>
             <hr>
@@ -494,7 +601,7 @@
                     </span>
                     <a href="http://lym01803.github.io" class="b-link-green">BLOG</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/03/22/article0004/" class="b-link-green">高中原创三题</a>
+                    <a href="/2019/03/27/article0006/" class="b-link-green">article0006</a>
                 </p>
             </div>
         </div>
@@ -517,7 +624,65 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2019/03/27/article0006/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="article0006">
+                        
+                        <span class="card-title">article0006</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">交大oj水题17道题解—-2019.03.27—-数据结构(俞勇班)第三次作业
+1005.数独1005
+题目大意检验数独的合法性，保证输入为1~9的整数
+题解暴力
+代码 
+#include 
+#include  
+int A[10][10]</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/algorithm/" class="post-category" target="_blank">
+                                    algorithm
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/algorithm/" target="_blank">
+                        <span class="chip bg-color">algorithm</span>
+                    </a>
+                    
+                    <a href="/tags/c/" target="_blank">
+                        <span class="chip bg-color">c++</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2019/03/22/article0005/">
                     <div class="card-image">
@@ -533,9 +698,9 @@
 基础知识浅谈FFT—快速傅里叶变换基本功能在O( (n+m)log(n+m) )的时间复杂度内计算：n次多项式乘m次多项式.
 实现方式欲求多项式A_多项式B：1.对多项式A，B分别进行快速傅里叶变换,得到A1,B1;2.将A1,B1</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -561,60 +726,6 @@
                     
                     <a href="/tags/c/" target="_blank">
                         <span class="chip bg-color">c++</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/03/21/article0003/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="20190321物理课堂习题笔记">
-                        
-                        <span class="card-title">20190321物理课堂习题笔记</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary">关于上题，课上给出两种做法。
-方法一：地面参考系下: 设小球水平运动位移为$\vec{s}$, 则力$\vec{F}$作用位移为$(\vec{l}+\vec{s})$.对小球,水平方向加速度:$a_hm=\frac{F}{2\cos{\th</div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-21
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/physics/" class="post-category" target="_blank">
-                                    physics
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/math/" target="_blank">
-                        <span class="chip bg-color">math</span>
-                    </a>
-                    
-                    <a href="/tags/physics/" target="_blank">
-                        <span class="chip bg-color">physics</span>
-                    </a>
-                    
-                    <a href="/tags/note/" target="_blank">
-                        <span class="chip bg-color">note</span>
                     </a>
                     
                 </div>
@@ -664,6 +775,99 @@
     });
 </script>
 
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
     
 
 </main>

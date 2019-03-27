@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>article0006</title>
+      <link href="/2019/03/27/article0006/"/>
+      <url>/2019/03/27/article0006/</url>
+      
+        <content type="html"><![CDATA[<h1 id="交大oj水题17道题解—-2019-03-27"><a href="#交大oj水题17道题解—-2019-03-27" class="headerlink" title="交大oj水题17道题解—-2019.03.27"></a>交大oj水题17道题解—-2019.03.27</h1><p>—-数据结构(俞勇班)第三次作业</p><h2 id="1005-数独"><a href="#1005-数独" class="headerlink" title="1005.数独"></a>1005.数独</h2><p><a href="https://acm.sjtu.edu.cn/OnlineJudge/problem/1005" target="_blank" rel="noopener">1005</a></p><h3 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h3><p>检验数独的合法性，保证输入为1~9的整数</p><h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>暴力</p><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre> <code class="c++">#include <cstdio>#include <cstring> int A[10][10];int cnt[12];int X[9] = {0, 0, 0, 3, 3, 3, 6, 6, 6}, Y[9] = {0, 3, 6, 0, 3, 6, 0, 3, 6};int dx[9] = {0, 0, 0, 1, 1, 1, 2, 2, 2}, dy[9] = {0, 1, 2, 0, 1, 2, 0, 1, 2};bool judge1(int p){    memset(cnt, 0, sizeof(cnt));    for(int i = 0; i < 9; ++i) ++cnt[A[p][i]];    for(int i = 1; i <= 9; ++i) if(cnt[i] !="1)" return 1; 0; } bool judge2(int p) { memset(cnt, 0, sizeof(cnt)); for(int i="0;" < ++cnt[a[i][p]]; judge3(int int xx="X[p]," yy="Y[p];" ++cnt[a[xx + dx[i]][yy+ dy[i]]]; void work() j="0;" ++j) scanf("%d", &a[i][j]); if(judge1(i) || judge2(i) judge3(i)) printf("wrong\n"); ; printf("right\n"); main() n; &n); work(); code> </=></cstring></cstdio></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> algorithm </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> algorithm </tag>
+            
+            <tag> c++ </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>浅谈FFT</title>
       <link href="/2019/03/22/article0005/"/>
       <url>/2019/03/22/article0005/</url>
