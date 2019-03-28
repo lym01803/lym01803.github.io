@@ -415,7 +415,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        845
+                        2.2k
                     </div>
                     
 
@@ -566,10 +566,318 @@ int main()
 <h3 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h3><p>此题应该有简单解法，毕竟是放在入门作业题中的<br>由于数据范围是$1 \leq n , m\leq 10^4$ 加上实际数据并没有给满(询问的区间长度没给满)，<br>所以裸跑暴力也勉强能过, 时间复杂度 O(mnlog n)</p>
 <p>相当于求静态区间第k小</p>
 <ol>
-<li>莫队+树状数组</li>
-<li>整体二分+树状数组</li>
-<li>主席树</li>
+<li>莫队+树状数组 $O(m\cdot\sqrt{n}\log{n})$</li>
+<li>整体二分+树状数组 $O(m\cdot\log^2{n})$</li>
+<li>主席树 <h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><h4 id="莫队-树状数组"><a href="#莫队-树状数组" class="headerlink" title="莫队+树状数组"></a>莫队+树状数组</h4><pre style="color:White;bgcolor:Black">
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define MAXN 10500
+#define lowbit(x) ((x)&-(x))
+int tr[MAXN], n;
+void _r(int& x)
+{
+ char c = getchar();
+ while(c &lt; '0' || c &gt; '9')
+     c = getchar();
+ for(x = 0; c &gt;= '0' && c &lt;= '9'; c = getchar())
+     x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + c - '0';
+ return ;
+}
+void modify(int x, int delta)
+{
+ for(int i = x; i &lt;= n + 10; i += lowbit(i))
+     tr[i] += delta;
+}
+int query(int x)
+{
+ int ans = 0;
+ for(int i = x; i; i -= lowbit(i))
+     ans += tr[i];
+ return ans;
+}
+const int I = 100;
+struct interval
+{
+ int L, R, que, id, L2;
+ interval(){}
+ interval(int _L, int _R, int _que, int _id)
+ {
+     L = _L;
+     R = _R;
+     que = _que;
+     id = _id;
+     L2 = L / I;
+ }
+}Q[MAXN];
+bool cmp(interval a, interval b)
+{
+ if(a.L2 == b.L2) return a.R &lt; b.R;
+ return a.L2 &lt; b.L2;
+}
+int A[MAXN], m, ans[MAXN];
+int main()
+{
+ _r(n);
+ _r(m);
+ for(int i = 1; i &lt;= n; ++i) 
+     _r(A[i]);
+ for(int i = 1, l, r, x; i &lt;= m; ++i)
+ {
+     _r(l); _r(r); _r(x);
+     Q[i] = interval(l, r, x, i);
+ }
+ sort(Q + 1, Q + m + 1, cmp);
+ int X = 1, Y = 0;
+ for(int i = 1, L, R; i &lt;= m; ++i)
+ {
+     L = Q[i].L;
+     R = Q[i].R;
+     if(Q[i].que &lt; L || Q[i].que &gt; R)
+     {
+         ans[Q[i].id] = 1;
+         continue;
+     }
+     while(Y &lt; R)
+         modify(A[++Y], 1);
+     while(Y &gt; R)
+         modify(A[Y--], -1);
+     while(X &lt; L)
+         modify(A[X++], -1);
+     while(X &gt; L)
+         modify(A[--X], 1);
+     ans[Q[i].id] = (query(A[Q[i].que]) == Q[i].que - L + 1);
+ }
+ for(int i = 1; i &lt;= m; ++i)
+     printf(ans[i] ? "Yes\n" : "No\n");
+ return 0;
+}
+</pre>
+#### 整体二分
+本蒟蒻第一次写整体二分，按照自己的思路瞎b写的，写得丑不要取笑!<br>
+<pre style="color:White;bgcolor:Black">
+#include &lt;cstdio&gt;
+#define MAXN 10500
+#define lowbit(x) (x&-x) 
+int pos[MAXN], n, m;
+int L[MAXN], R[MAXN], key[MAXN], ans[MAXN];
+int tmp1[MAXN], tmp2[MAXN], Q[MAXN], _key[MAXN];
+int tr[MAXN &lt;&lt; 1];
+void modify(int x, int delta)
+{
+ for(; x &lt;= n; x += lowbit(x))
+ {
+     tr[x] += delta;
+ }
+ return ;
+} 
+int query(int x)
+{
+ int ans = 0;
+ if(x == 0)
+ {
+     return 0;
+ }
+ for(; x; x -= lowbit(x))
+ {
+     ans += tr[x];
+ }
+ return ans;
+}
+void _r(int& x) {
+ char c = getchar();
+ while(c &lt; '0' || c &gt; '9') 
+ {
+     c = getchar();
+ }
+ for(x = 0; c &gt;= '0' && c &lt;= '9'; c = getchar()) 
+ {
+     x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + c - '0';
+ }
+ return ;
+}
+void solve(int _L, int _R, int st, int ed)
+{
+ if(_R == _L)
+ {
+     for(int i = st; i &lt;= ed; ++i)
+     {
+         ans[Q[i]] = _L;
+     }
+     return ;
+ }
+ int M = (_L + _R) &gt;&gt; 1, c1 = 0, c2 = 0, pp = st;
+ for(int i = _L; i &lt;= M; ++i)
+ {
+     modify(pos[i], 1);
+ }
+ for(int i = st, I, delta; i &lt;= ed; ++i)
+ {
+     I = Q[i];
+     if((delta = query(R[I]) - query(L[I] - 1)) &gt;= key[I])
+     {
+         tmp1[c1++] = Q[i];
+     }
+     else
+     {
+         tmp2[c2++] = Q[i];
+         key[Q[i]] -= delta;
+     }
+ }
+ for(int i = _L; i &lt;= M; ++i)
+ {
+     modify(pos[i], -1);
+ }
+ for(int i = 0; i &lt; c1; ++i)
+ {
+     Q[pp++] = tmp1[i];
+ }
+ for(int i = 0; i &lt; c2; ++i)
+ {
+     Q[pp++] = tmp2[i];
+ }
+ solve(_L, M, st, st+c1-1);
+ solve(M+1, _R, st+c1, pp-1);
+ return ;
+}
+int main() 
+{
+ _r(n);
+ _r(m);
+ for(int i = 1, x; i &lt;= n; ++i)
+ {
+     _r(x);
+     pos[x] = i;
+ }
+ for(int i = 1; i &lt;= m; ++i)
+ {
+     _r(L[i]);
+     _r(R[i]);
+     _r(_key[i]);
+     if(_key[i] &gt;= L[i] && _key[i] &lt;= R[i])
+     {
+         key[i] = _key[i] - L[i] + 1;
+     }
+     else
+     {
+         key[i] = 1;
+     }
+     Q[i] = i;
+ }
+ solve(1, n, 1, m);
+ for(int i = 1; i &lt;= m; ++i)
+ {
+     if(_key[i] &gt;= L[i] && _key[i] &lt;= R[i])
+     {
+         if(pos[ans[i]] == _key[i])
+         {
+             printf("Yes\n");
+         }
+         else
+         {
+             printf("No\n");
+         }
+     }
+     else
+     {
+         printf("Yes\n");
+     }
+ }
+ return 0;
+}
+</pre>
+
+</li>
 </ol>
+<h2 id="1594-求和"><a href="#1594-求和" class="headerlink" title="1594.求和"></a>1594.求和</h2><p><a href="https://acm.sjtu.edu.cn/OnlineJudge/problem/4045" target="_blank" rel="noopener">1594</a></p>
+<h3 id="题目大意-4"><a href="#题目大意-4" class="headerlink" title="题目大意"></a>题目大意</h3><p>此题一语双关<br>题目背景是割地求和<br>于是做法也自然是求和</p>
+<h3 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h3><p>二维前缀和<br>不过这个题的数据范围有诈，给的不是n，m的范围，而是n*m的范围。<br>不知道实际数据如何，但保险起见还是动态开辟二维数组吧。</p>
+<h3 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h3><pre style="color:White;bgcolor:Black">
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+int n, m, q;
+void _r(int& x)
+{
+    char c = getchar();
+    while(c &lt; '0' || c &gt; '9')
+        c =getchar();
+    for(x = 0; c &gt;= '0' && c &lt;= '9'; c = getchar())
+        x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + c - '0';
+    return ;
+}
+int main()
+{
+    _r(n);
+    _r(m);
+    _r(q);
+    long long** summ = (long long**) malloc(sizeof(long long*) * (n + 2));
+    for(int i = 0; i &lt;= n + 1; ++i)
+    {
+        summ[i] = (long long*) malloc(sizeof(long long) * (m + 2));
+        for(int j = 0; j &lt;= m + 1; ++j)
+            summ[i][j] = 0;
+    }
+    for(int i = 1; i &lt;= n; ++i)
+        for(int j = 1, x; j &lt;= m; ++j)
+        {
+            _r(x);
+            summ[i][j] = summ[i-1][j] + summ[i][j-1] - summ[i-1][j-1] + x;
+        }
+    for(int i = 1, a, b, c, d; i &lt;= q; ++i)
+    {
+        _r(a); _r(b); _r(c); _r(d);
+        printf("%lld\n", summ[c][d] - summ[a-1][d] - summ[c][b-1] + summ[a-1][b-1]);
+    }
+    return 0;
+}    
+</pre>
+
+<h2 id="4206-Strict-Yan涂色"><a href="#4206-Strict-Yan涂色" class="headerlink" title="4206. Strict Yan涂色"></a>4206. Strict Yan涂色</h2><p><a href="https://acm.sjtu.edu.cn/OnlineJudge/problem/4206" target="_blank" rel="noopener">4206</a></p>
+<h3 id="题目大意-5"><a href="#题目大意-5" class="headerlink" title="题目大意"></a>题目大意</h3><p>修改部分格子的颜色，使之能够被分成若干k*k的颜色相同的小块。<br>要求最少化修改操作。</p>
+<h3 id="题解-5"><a href="#题解-5" class="headerlink" title="题解"></a>题解</h3><p>暴力模拟就行了。<br>因为$$\sum_{k=2}^{+\infty}{\frac{1}{k^2}}=\frac{\pi^2}{6}-1$$<br>所以效率是O(nm)的</p>
+<h3 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h3><pre style="color:White;bgcolor:Black">
+#include &lt;cstdio&gt;
+#define MAXN 2050
+int cnt[MAXN][MAXN];
+int n, m, n2, m2, mx, cc, ans, k2;
+char str[2050];
+inline int Cnt(int a, int b, int c, int d)
+{
+    return cnt[c][d] - cnt[c][b-1] - cnt[a-1][d] + cnt[a-1][b-1];
+}
+int main()
+{
+    scanf("%d%d", &n, &m);
+    ans = n * m;
+    mx = (m &gt; n ? m : n);
+    n2 = (mx &lt;&lt; 1); m2 = (mx &lt;&lt; 1);
+    for(int i = 1; i &lt;= n; ++i)
+    {
+        scanf("%s", str + 1);
+        for(int j = 1; j &lt;= m; ++j)
+            cnt[i][j] = cnt[i-1][j] + cnt[i][j-1] - cnt[i-1][j-1] + str[j] - '0';
+        for(int j = m + 1; j &lt;= m2; ++j) cnt[i][j] = cnt[i][j-1];
+    }
+    for(int i = n + 1; i &lt;= n2; ++i)
+        for(int j = 1; j &lt;= m2; ++j)
+            cnt[i][j] = cnt[i-1][j];
+    for(int k = 2; k &lt;= mx; ++k)
+    {
+        cc = 0;
+        k2 = k * k;
+        for(int i = 1; i &lt;= n; i += k)
+            for(int j = 1, tmp; j &lt;= m; j += k)
+            {
+                tmp = Cnt(i, j, i + k - 1, j + k - 1);
+                cc += ((tmp &lt;&lt; 1) &lt; k2 ? tmp : k2- tmp);
+            }
+        ans = ans &gt; cc ? cc : ans;
+    }
+    printf("%d\n", ans);
+    return 0;
+}
+</pre>
+
 
             </div>
             <hr>
@@ -1024,7 +1332,7 @@ int main()
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">9.6k</span>
+                <span class="white-color">10.9k</span>
             
 
             
