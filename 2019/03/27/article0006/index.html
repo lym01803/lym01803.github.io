@@ -568,7 +568,9 @@ int main()
 <ol>
 <li>莫队+树状数组 $O(m\cdot\sqrt{n}\log{n})$</li>
 <li>整体二分+树状数组 $O(m\cdot\log^2{n})$</li>
-<li>主席树 <h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><h4 id="莫队-树状数组"><a href="#莫队-树状数组" class="headerlink" title="莫队+树状数组"></a>莫队+树状数组</h4><pre style="color:White;bgcolor:Black">
+<li>主席树 <h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><h4 id="莫队-树状数组"><a href="#莫队-树状数组" class="headerlink" title="莫队+树状数组"></a>莫队+树状数组</h4></li>
+</ol>
+<pre style="color:White;bgcolor:Black">
 #include &lt;cstdio&gt;
 #include &lt;algorithm&gt;
 using namespace std;
@@ -577,84 +579,85 @@ using namespace std;
 int tr[MAXN], n;
 void _r(int& x)
 {
- char c = getchar();
- while(c &lt; '0' || c &gt; '9')
-     c = getchar();
- for(x = 0; c &gt;= '0' && c &lt;= '9'; c = getchar())
-     x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + c - '0';
- return ;
+    char c = getchar();
+    while(c &lt; '0' || c &gt; '9')
+        c = getchar();
+    for(x = 0; c &gt;= '0' && c &lt;= '9'; c = getchar())
+        x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + c - '0';
+    return ;
 }
 void modify(int x, int delta)
 {
- for(int i = x; i &lt;= n + 10; i += lowbit(i))
-     tr[i] += delta;
+    for(int i = x; i &lt;= n + 10; i += lowbit(i))
+        tr[i] += delta;
 }
 int query(int x)
 {
- int ans = 0;
- for(int i = x; i; i -= lowbit(i))
-     ans += tr[i];
- return ans;
+    int ans = 0;
+    for(int i = x; i; i -= lowbit(i))
+        ans += tr[i];
+    return ans;
 }
 const int I = 100;
 struct interval
 {
- int L, R, que, id, L2;
- interval(){}
- interval(int _L, int _R, int _que, int _id)
- {
-     L = _L;
-     R = _R;
-     que = _que;
-     id = _id;
-     L2 = L / I;
- }
+    int L, R, que, id, L2;
+    interval(){}
+    interval(int _L, int _R, int _que, int _id)
+    {
+        L = _L;
+        R = _R;
+        que = _que;
+        id = _id;
+        L2 = L / I;
+    }
 }Q[MAXN];
 bool cmp(interval a, interval b)
 {
- if(a.L2 == b.L2) return a.R &lt; b.R;
- return a.L2 &lt; b.L2;
+    if(a.L2 == b.L2) return a.R &lt; b.R;
+    return a.L2 &lt; b.L2;
 }
 int A[MAXN], m, ans[MAXN];
 int main()
 {
- _r(n);
- _r(m);
- for(int i = 1; i &lt;= n; ++i) 
-     _r(A[i]);
- for(int i = 1, l, r, x; i &lt;= m; ++i)
- {
-     _r(l); _r(r); _r(x);
-     Q[i] = interval(l, r, x, i);
- }
- sort(Q + 1, Q + m + 1, cmp);
- int X = 1, Y = 0;
- for(int i = 1, L, R; i &lt;= m; ++i)
- {
-     L = Q[i].L;
-     R = Q[i].R;
-     if(Q[i].que &lt; L || Q[i].que &gt; R)
-     {
-         ans[Q[i].id] = 1;
-         continue;
-     }
-     while(Y &lt; R)
-         modify(A[++Y], 1);
-     while(Y &gt; R)
-         modify(A[Y--], -1);
-     while(X &lt; L)
-         modify(A[X++], -1);
-     while(X &gt; L)
-         modify(A[--X], 1);
-     ans[Q[i].id] = (query(A[Q[i].que]) == Q[i].que - L + 1);
- }
- for(int i = 1; i &lt;= m; ++i)
-     printf(ans[i] ? "Yes\n" : "No\n");
- return 0;
+    _r(n);
+    _r(m);
+    for(int i = 1; i &lt;= n; ++i) 
+        _r(A[i]);
+    for(int i = 1, l, r, x; i &lt;= m; ++i)
+    {
+        _r(l); _r(r); _r(x);
+        Q[i] = interval(l, r, x, i);
+    }
+    sort(Q + 1, Q + m + 1, cmp);
+    int X = 1, Y = 0;
+    for(int i = 1, L, R; i &lt;= m; ++i)
+    {
+        L = Q[i].L;
+        R = Q[i].R;
+        if(Q[i].que &lt; L || Q[i].que &gt; R)
+        {
+            ans[Q[i].id] = 1;
+            continue;
+        }
+        while(Y &lt; R)
+            modify(A[++Y], 1);
+        while(Y &gt; R)
+            modify(A[Y--], -1);
+        while(X &lt; L)
+            modify(A[X++], -1);
+        while(X &gt; L)
+            modify(A[--X], 1);
+        ans[Q[i].id] = (query(A[Q[i].que]) == Q[i].que - L + 1);
+    }
+    for(int i = 1; i &lt;= m; ++i)
+        printf(ans[i] ? "Yes\n" : "No\n");
+    return 0;
 }
 </pre>
-#### 整体二分
-本蒟蒻第一次写整体二分，按照自己的思路瞎b写的，写得丑不要取笑!<br>
+
+
+<h4 id="整体二分"><a href="#整体二分" class="headerlink" title="整体二分"></a>整体二分</h4><p>本蒟蒻第一次写整体二分，按照自己的思路瞎b写的，写得丑不要取笑!</p>
 <pre style="color:White;bgcolor:Black">
 #include &lt;cstdio&gt;
 #define MAXN 10500
@@ -665,130 +668,128 @@ int tmp1[MAXN], tmp2[MAXN], Q[MAXN], _key[MAXN];
 int tr[MAXN &lt;&lt; 1];
 void modify(int x, int delta)
 {
- for(; x &lt;= n; x += lowbit(x))
- {
-     tr[x] += delta;
- }
- return ;
+    for(; x &lt;= n; x += lowbit(x))
+    {
+        tr[x] += delta;
+    }
+    return ;
 } 
 int query(int x)
 {
- int ans = 0;
- if(x == 0)
- {
-     return 0;
- }
- for(; x; x -= lowbit(x))
- {
-     ans += tr[x];
- }
- return ans;
+    int ans = 0;
+    if(x == 0)
+    {
+        return 0;
+    }
+    for(; x; x -= lowbit(x))
+    {
+        ans += tr[x];
+    }
+    return ans;
 }
 void _r(int& x) {
- char c = getchar();
- while(c &lt; '0' || c &gt; '9') 
- {
-     c = getchar();
- }
- for(x = 0; c &gt;= '0' && c &lt;= '9'; c = getchar()) 
- {
-     x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + c - '0';
- }
- return ;
+    char c = getchar();
+    while(c &lt; '0' || c &gt; '9') 
+    {
+        c = getchar();
+    }
+    for(x = 0; c &gt;= '0' && c &lt;= '9'; c = getchar()) 
+    {
+        x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + c - '0';
+    }
+    return ;
 }
 void solve(int _L, int _R, int st, int ed)
 {
- if(_R == _L)
- {
-     for(int i = st; i &lt;= ed; ++i)
-     {
-         ans[Q[i]] = _L;
-     }
-     return ;
- }
- int M = (_L + _R) &gt;&gt; 1, c1 = 0, c2 = 0, pp = st;
- for(int i = _L; i &lt;= M; ++i)
- {
-     modify(pos[i], 1);
- }
- for(int i = st, I, delta; i &lt;= ed; ++i)
- {
-     I = Q[i];
-     if((delta = query(R[I]) - query(L[I] - 1)) &gt;= key[I])
-     {
-         tmp1[c1++] = Q[i];
-     }
-     else
-     {
-         tmp2[c2++] = Q[i];
-         key[Q[i]] -= delta;
-     }
- }
- for(int i = _L; i &lt;= M; ++i)
- {
-     modify(pos[i], -1);
- }
- for(int i = 0; i &lt; c1; ++i)
- {
-     Q[pp++] = tmp1[i];
- }
- for(int i = 0; i &lt; c2; ++i)
- {
-     Q[pp++] = tmp2[i];
- }
- solve(_L, M, st, st+c1-1);
- solve(M+1, _R, st+c1, pp-1);
- return ;
+    if(_R == _L)
+    {
+        for(int i = st; i &lt;= ed; ++i)
+        {
+            ans[Q[i]] = _L;
+        }
+        return ;
+    }
+    int M = (_L + _R) &gt;&gt; 1, c1 = 0, c2 = 0, pp = st;
+    for(int i = _L; i &lt;= M; ++i)
+    {
+        modify(pos[i], 1);
+    }
+    for(int i = st, I, delta; i &lt;= ed; ++i)
+    {
+        I = Q[i];
+        if((delta = query(R[I]) - query(L[I] - 1)) &gt;= key[I])
+        {
+            tmp1[c1++] = Q[i];
+        }
+        else
+        {
+            tmp2[c2++] = Q[i];
+            key[Q[i]] -= delta;
+        }
+    }
+    for(int i = _L; i &lt;= M; ++i)
+    {
+        modify(pos[i], -1);
+    }
+    for(int i = 0; i &lt; c1; ++i)
+    {
+        Q[pp++] = tmp1[i];
+    }
+    for(int i = 0; i &lt; c2; ++i)
+    {
+        Q[pp++] = tmp2[i];
+    }
+    solve(_L, M, st, st+c1-1);
+    solve(M+1, _R, st+c1, pp-1);
+    return ;
 }
 int main() 
 {
- _r(n);
- _r(m);
- for(int i = 1, x; i &lt;= n; ++i)
- {
-     _r(x);
-     pos[x] = i;
- }
- for(int i = 1; i &lt;= m; ++i)
- {
-     _r(L[i]);
-     _r(R[i]);
-     _r(_key[i]);
-     if(_key[i] &gt;= L[i] && _key[i] &lt;= R[i])
-     {
-         key[i] = _key[i] - L[i] + 1;
-     }
-     else
-     {
-         key[i] = 1;
-     }
-     Q[i] = i;
- }
- solve(1, n, 1, m);
- for(int i = 1; i &lt;= m; ++i)
- {
-     if(_key[i] &gt;= L[i] && _key[i] &lt;= R[i])
-     {
-         if(pos[ans[i]] == _key[i])
-         {
-             printf("Yes\n");
-         }
-         else
-         {
-             printf("No\n");
-         }
-     }
-     else
-     {
-         printf("Yes\n");
-     }
- }
- return 0;
+    _r(n);
+    _r(m);
+    for(int i = 1, x; i &lt;= n; ++i)
+    {
+        _r(x);
+        pos[x] = i;
+    }
+    for(int i = 1; i &lt;= m; ++i)
+    {
+        _r(L[i]);
+        _r(R[i]);
+        _r(_key[i]);
+        if(_key[i] &gt;= L[i] && _key[i] &lt;= R[i])
+        {
+            key[i] = _key[i] - L[i] + 1;
+        }
+        else
+        {
+            key[i] = 1;
+        }
+        Q[i] = i;
+    }
+    solve(1, n, 1, m);
+    for(int i = 1; i &lt;= m; ++i)
+    {
+        if(_key[i] &gt;= L[i] && _key[i] &lt;= R[i])
+        {
+            if(pos[ans[i]] == _key[i])
+            {
+                printf("Yes\n");
+            }
+            else
+            {
+                printf("No\n");
+            }
+        }
+        else
+        {
+            printf("Yes\n");
+        }
+    }
+    return 0;
 }
 </pre>
 
-</li>
-</ol>
 <h2 id="1594-求和"><a href="#1594-求和" class="headerlink" title="1594.求和"></a>1594.求和</h2><p><a href="https://acm.sjtu.edu.cn/OnlineJudge/problem/4045" target="_blank" rel="noopener">1594</a></p>
 <h3 id="题目大意-4"><a href="#题目大意-4" class="headerlink" title="题目大意"></a>题目大意</h3><p>此题一语双关<br>题目背景是割地求和<br>于是做法也自然是求和</p>
 <h3 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h3><p>二维前缀和<br>不过这个题的数据范围有诈，给的不是n，m的范围，而是n*m的范围。<br>不知道实际数据如何，但保险起见还是动态开辟二维数组吧。</p>
