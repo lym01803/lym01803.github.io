@@ -415,7 +415,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.1k
+                        3.9k
                     </div>
                     
 
@@ -1118,6 +1118,139 @@ int main()
     return 0;
 }
 </pre>
+
+<h2 id="1034-二哥的金链"><a href="#1034-二哥的金链" class="headerlink" title="1034.二哥的金链"></a>1034.二哥的金链</h2><p><a href="https://acm.sjtu.edu.cn/OnlineJudge/problem/1034" target="_blank" rel="noopener">1034</a></p>
+<h3 id="题目大意-11"><a href="#题目大意-11" class="headerlink" title="题目大意"></a>题目大意</h3><p>给定一个圆环以及圆环上的若干个数。对于每一个长度为k的区间，取区间内<br>圆环上的数的最大值，求所有这些最大值中最小的那个值。</p>
+<h3 id="题解-11"><a href="#题解-11" class="headerlink" title="题解"></a>题解</h3><h4 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h4><p>单调队列，经典的滑动窗口模型。<br>队列里面按照下标递增高度递减的方式维护当前考虑的区间里的数。<br>正确性可以由一个简单的贪心原则说明：对于位置靠后的数，如果比位置靠前的数更大，<br>那么位置靠前的数出队列。因为当靠后的数位于当前考虑的区间时，由于它更大，故而<br>靠前的数不可能成为最大值；而当靠后的数不位于当前考虑区间时，靠前的数也不位于<br>考虑区间内(事实上靠前的数更早离开考虑区间)，也不可能是最大值。<br>每次进行下列三个操作：</p>
+<ol>
+<li>将不在区间里面的数，剔除(小于考虑范围的左界，而且每次至多剔除一个，且只可能剔除队首元素)</li>
+<li>将右边界处的新加入元素入队，并维护单调性</li>
+<li>取队列中最大元素(根据单调性，是队首元素)<h5 id="代码-11"><a href="#代码-11" class="headerlink" title="代码"></a>代码</h5><pre style="color:White;bgcolor:Black">
+#include &lt;cstdio&gt;
+#define MAXN 200500
+int A[MAXN &lt;&lt; 1], n, k;
+int Q[MAXN], hh = 1, tt = 0;
+void _r(int& x)
+{
+ char c = getchar();
+ while(c &lt; '0' || c &gt; '9')
+ {
+     c = getchar();
+ }
+ for(x = 0; c &gt;= '0' && c &lt;= '9'; c = getchar())
+ {
+     x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + c - '0';
+ }
+ return ;
+}
+inline int minn(int a, int b)
+{
+ return a &lt; b ? a : b;
+}
+void push(int x)
+{
+ while(hh &lt;= tt && A[Q[tt]] &lt;= A[x])
+ {
+     --tt;
+ }
+ Q[++tt] = x;
+ return ;
+}
+int main()
+{
+ _r(n);
+ _r(k);
+ for(int i = 1; i &lt;= n; ++i)
+ {
+     _r(A[i]);
+     A[i + n] = A[i];
+     if(i &lt;= k)
+     {
+         push(i);
+     }
+ }
+ int ans = A[Q[hh]];
+ for(int i = 2; i &lt;= n; ++i)
+ {
+     if(Q[hh] &lt; i)
+     {
+         ++hh;
+     }
+     push(i + k - 1);
+     ans = minn(ans, A[Q[hh]]);
+ }
+ printf("%d\n", ans);
+ return 0;
+}
+</pre>
+
+</li>
+</ol>
+<h4 id="稀疏表ST-Sparse-Table"><a href="#稀疏表ST-Sparse-Table" class="headerlink" title="稀疏表ST(Sparse Table)"></a>稀疏表ST(Sparse Table)</h4><p>经典算法，倍增的思想<br>用$Max[k][i]$ 表示区间$[i,i+2^k)$的最值<br>求Max用倍增思想:$Max[k+1][i] = max(Max[k][i], Max[k][i+(1&lt;&lt;k)])$<br>求解区间 [L,R] 最值则可用两段区间去覆盖</p>
+<h5 id="代码-12"><a href="#代码-12" class="headerlink" title="代码"></a>代码</h5><pre style="color:White;bgcolor:Black">
+#include &lt;cstdio&gt;
+#define MAXN 205000 
+int n, k ,n2;
+void _r(int& x)
+{
+    char c = getchar();
+    while(c &lt; '0' || c &gt; '9')
+    {
+        c = getchar();
+    }
+    for(x = 0; c &gt;= '0' && c &lt;= '9'; c = getchar())
+    {
+        x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + c - '0';
+    }
+    return ;
+}
+int A[MAXN &lt;&lt; 1];
+int M[22][MAXN &lt;&lt; 1];
+inline int maxn(int a, int b)
+{
+    return a &gt; b ? a : b;
+}
+inline int minn(int a, int b)
+{
+    return a &lt; b ? a : b;
+}
+int main()
+{
+    int ans = 0;
+    _r(n); 
+    n2 = (n &lt;&lt; 1);
+    _r(k);
+    for(int i = 1; i &lt;= n; ++i)
+    {
+        _r(A[i]);
+        ans = maxn(ans, A[i]);
+        A[i + n] = A[i];
+        M[0][i] = M[0][i + n] = A[i];
+    }
+    for(int kk = 1, L; kk &lt;= 19; ++kk)
+    {
+        L = (1 &lt;&lt; (kk - 1));
+        for(int i = 1; i + L &lt;= n2; ++i)
+        {
+            M[kk][i] = maxn(M[kk-1][i], M[kk-1][i+L]);
+        }
+    }
+    int cnt = 0, L;
+    for(int i = k; i; i &gt;&gt;= 1)
+    {
+        ++cnt;
+    }
+    cnt -= 1;
+    L = (1 &lt;&lt; cnt);
+    for(int i = 1, mx; i &lt;= n; ++i)
+    {
+        mx = maxn(M[cnt][i], M[cnt][i + k - L]);
+        ans = minn(ans, mx);
+    }
+    printf("%d\n", ans);
+    return 0;
+}
+</pre>
             </div>
             <hr>
 
@@ -1571,7 +1704,7 @@ int main()
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">11.9k</span>
+                <span class="white-color">12.7k</span>
             
 
             
