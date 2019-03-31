@@ -415,7 +415,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.9k
+                        6k
                     </div>
                     
 
@@ -1125,67 +1125,67 @@ int main()
 <ol>
 <li>将不在区间里面的数，剔除(小于考虑范围的左界，而且每次至多剔除一个，且只可能剔除队首元素)</li>
 <li>将右边界处的新加入元素入队，并维护单调性</li>
-<li>取队列中最大元素(根据单调性，是队首元素)<h5 id="代码-11"><a href="#代码-11" class="headerlink" title="代码"></a>代码</h5><pre style="color:White;bgcolor:Black">
+<li>取队列中最大元素(根据单调性，是队首元素)</li>
+</ol>
+<h5 id="代码-11"><a href="#代码-11" class="headerlink" title="代码"></a>代码</h5><pre style="color:White;bgcolor:Black">
 #include &lt;cstdio&gt;
 #define MAXN 200500
 int A[MAXN &lt;&lt; 1], n, k;
 int Q[MAXN], hh = 1, tt = 0;
 void _r(int& x)
 {
- char c = getchar();
- while(c &lt; '0' || c &gt; '9')
- {
-     c = getchar();
- }
- for(x = 0; c &gt;= '0' && c &lt;= '9'; c = getchar())
- {
-     x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + c - '0';
- }
- return ;
+    char c = getchar();
+    while(c &lt; '0' || c &gt; '9')
+    {
+        c = getchar();
+    }
+    for(x = 0; c &gt;= '0' && c &lt;= '9'; c = getchar())
+    {
+        x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + c - '0';
+    }
+    return ;
 }
 inline int minn(int a, int b)
 {
- return a &lt; b ? a : b;
+    return a &lt; b ? a : b;
 }
 void push(int x)
 {
- while(hh &lt;= tt && A[Q[tt]] &lt;= A[x])
- {
-     --tt;
- }
- Q[++tt] = x;
- return ;
+    while(hh &lt;= tt && A[Q[tt]] &lt;= A[x])
+    {
+        --tt;
+    }
+    Q[++tt] = x;
+    return ;
 }
 int main()
 {
- _r(n);
- _r(k);
- for(int i = 1; i &lt;= n; ++i)
- {
-     _r(A[i]);
-     A[i + n] = A[i];
-     if(i &lt;= k)
-     {
-         push(i);
-     }
- }
- int ans = A[Q[hh]];
- for(int i = 2; i &lt;= n; ++i)
- {
-     if(Q[hh] &lt; i)
-     {
-         ++hh;
-     }
-     push(i + k - 1);
-     ans = minn(ans, A[Q[hh]]);
- }
- printf("%d\n", ans);
- return 0;
+    _r(n);
+    _r(k);
+    for(int i = 1; i &lt;= n; ++i)
+    {
+        _r(A[i]);
+        A[i + n] = A[i];
+        if(i &lt;= k)
+        {
+            push(i);
+        }
+    }
+    int ans = A[Q[hh]];
+    for(int i = 2; i &lt;= n; ++i)
+    {
+        if(Q[hh] &lt; i)
+        {
+            ++hh;
+        }
+        push(i + k - 1);
+        ans = minn(ans, A[Q[hh]]);
+    }
+    printf("%d\n", ans);
+    return 0;
 }
 </pre>
 
-</li>
-</ol>
 <h4 id="稀疏表ST-Sparse-Table"><a href="#稀疏表ST-Sparse-Table" class="headerlink" title="稀疏表ST(Sparse Table)"></a>稀疏表ST(Sparse Table)</h4><p>经典算法，倍增的思想<br>用$Max[k][i]$ 表示区间$[i,i+2^k)$的最值<br>求Max用倍增思想:$Max[k+1][i] = max(Max[k][i], Max[k][i+(1&lt;&lt;k)])$<br>求解区间 [L,R] 最值则可用两段区间去覆盖</p>
 <h5 id="代码-12"><a href="#代码-12" class="headerlink" title="代码"></a>代码</h5><pre style="color:White;bgcolor:Black">
 #include &lt;cstdio&gt;
@@ -1251,6 +1251,344 @@ int main()
     return 0;
 }
 </pre>
+
+<h2 id="4207-大主教带队"><a href="#4207-大主教带队" class="headerlink" title="4207.大主教带队"></a>4207.大主教带队</h2><p><a href="https://acm.sjtu.edu.cn/OnlineJudge/problem/4207" target="_blank" rel="noopener">4207</a></p>
+<h3 id="题目大意-12"><a href="#题目大意-12" class="headerlink" title="题目大意"></a>题目大意</h3><p>有n个小朋友，每个小朋友有其对应的能力值。<br>现要求组建至多k支队伍，每只队伍中的小朋友能力值的极差不超过5。<br>求这k支队伍所能包含的小朋友的最大值。</p>
+<h3 id="题解-12"><a href="#题解-12" class="headerlink" title="题解"></a>题解</h3><p>依照题意，这k支队伍的小朋友是可以重复的，就是说两支队伍可以收留同一个小朋友。<br>但实际上，从求解的角度来说，不妨假定所有队伍都不交，而且容易说明，这样的假定<br>不会影响最终结果。</p>
+<p>此题类似于”筷子配对”那道经典题目，按照贪心的原则，我们需要使队伍包含尽可能多<br>的小朋友，而如果我们将小朋友的能力值排序，那么每个队伍的小朋友对应的能力值<br>必然是一个连续的区间，否则不可能是最优解。</p>
+<p>所以第一步先排序</p>
+<p>考虑状态 $f[k][i]$表示前i个小朋友分成k组(可以有队伍为空)，能够收留的最大人数。<br>(等价的定义是：分成k个队伍，第k组的右端点不超过i，所能收留的最大人数)<br>边值条件: $f[0][i] = 0, f[i][0]=0$<br>转移方程: (注意到$f[k][i]​$表示的状态是可以不包含第i个小朋友的，相当于是前缀最大值)<br>$$<br>f[k][i]=\max \begin{cases}<br>&amp;f[k][i-1]\\<br>&amp;\max{(f[k-1][j]+i-j)}, a[j+1]+5&lt;=a[i]\  (显然i==j的情形也包含在内)<br>\end{cases}<br>\ \ \ \ a[i]表示排序后第i个小朋友的能力值<br>$$<br>$O(n^2 k)$ 按照$1\leq k\leq n \leq 5000$的数据范围会超时</p>
+<p>注意到$max{(f[k-1][j]+i-j)}=i+max{(f[k-1][j]-j)}$后面max部分与循环变量i无关，故可以分离开<br>单独维护最大值，O(1)转移，具体方法是用单调队列(后进队且值更大的一定更优)。</p>
+<p>时间复杂度$O(nk)$ 用滚动数组 空间$O(n)$</p>
+<h3 id="代码-13"><a href="#代码-13" class="headerlink" title="代码"></a>代码</h3><pre style="color:White;bgcolor:Black">
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define MAXN 5500
+void _r(int& x)
+{
+    char c = getchar();
+    while(c &lt; '0' || c &gt; '9')
+    {
+        c = getchar();
+    }
+    for(x = 0; c &gt;= '0' && c &lt;= '9'; c = getchar())
+    {
+        x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + c - '0';
+    }
+    return ;
+}
+int N, K;
+int f[2][MAXN], A[MAXN];
+int Q[MAXN &lt;&lt; 1], hh, tt, ans = 0;
+inline int maxn(int a, int b)
+{
+    return a &gt; b ? a : b;
+}
+int main()
+{
+    _r(N);
+    _r(K);
+    for(int i = 1; i &lt;= N; ++i)
+    {
+        _r(A[i]);
+    }
+    sort(A + 1, A + 1 + N);
+    for(int kk = 1, k; kk &lt;= K; ++kk)
+    {
+        k = (kk & 1);
+        hh = 1;
+        tt = 0;
+        Q[++tt] = 0; //very important !!!
+        for(int i = 1, tmp; i &lt;= N; ++i)
+        {
+            tmp = f[k^1][i] - i;
+            while(hh &lt;= tt && A[Q[hh] + 1] + 5 &lt; A[i])
+            {
+                ++hh;
+            }
+            while(hh &lt;= tt && f[k^1][Q[tt]] - Q[tt] &lt;= tmp)
+            {
+                --tt;
+            }
+            Q[++tt] = i;
+            f[k][i] = maxn(f[k][i-1], i - Q[hh] + f[k^1][Q[hh]]);
+            ans = maxn(ans, f[k][i]);
+        }
+    }
+    printf("%d\n", ans);
+    return 0;
+}
+</pre>
+
+<h2 id="4054-伪回文数"><a href="#4054-伪回文数" class="headerlink" title="4054.伪回文数"></a>4054.伪回文数</h2><p><a href="https://acm.sjtu.edu.cn/OnlineJudge/problem/4054" target="_blank" rel="noopener">4054</a></p>
+<h3 id="题目大意-13"><a href="#题目大意-13" class="headerlink" title="题目大意"></a>题目大意</h3><p>求一个区间内的伪回文数个数<br>伪回文数定义为首位等于末位的数</p>
+<h3 id="题解-13"><a href="#题解-13" class="headerlink" title="题解"></a>题解</h3><p>起初因为思维混乱，wa了很多次。<br>大概就是数位dp那种感觉，但实际上比数位dp简单多了。<br>分情况计数就好</p>
+<h3 id="代码-14"><a href="#代码-14" class="headerlink" title="代码"></a>代码</h3><pre style="color:White;bgcolor:Black">
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#define MAXN 22
+char str1[MAXN], str2[MAXN];
+long long ksm(long long a, int k)
+{
+    long long ans = 1LL;
+    for(; k; k &gt;&gt;= 1, a *= a)
+    {
+        if(k & 1)
+        {
+            ans *= a;
+        }
+    }
+    return ans;
+}
+inline int minn(int a, int b)
+{
+    return a &lt; b ? a : b;
+}
+inline long long f(int _limit, int _free)
+{
+    if(_limit &lt;= 0)
+    {
+        return 0;
+    }
+    return 1LL * _limit * ksm(10LL, _free);
+}
+long long num(char str[], int L, int R)
+{
+    long long ans = 0LL;
+    for(int i = L; i &lt;= R; ++i)
+    {
+        ans = ans * 10LL + str[i] - '0';
+    }
+    return ans;
+}
+long long cal(char str[])
+{
+    int len = strlen(str);
+    long long ans = 0LL;
+    for(int i = 1; i &lt; len; ++i)
+    {
+        ans += f(9, i == 1 ? 0 : (i - 2));
+    }
+    ans += f(str[0] - '0' - 1, len == 1 ? 0 : len - 2);
+    if(str[0] - '0')
+    {
+        ans += num(str, 1, len - 2) + (str[len - 1] &gt;= str[0]);
+    }
+    return ans;
+}
+int main()
+{
+    long long num1, num2;
+    scanf("%lld%lld", &num1, &num2);
+    sprintf(str1, "%lld\0", num1 - 1);
+    sprintf(str2, "%lld\0", num2);
+    printf("%lld\n", cal(str2) - cal(str1));
+    /*freopen("data.txt", "w", stdout);
+    for(int i = 1; i &lt;= 1000; ++i)
+    {
+        sprintf(str1, "%d\0", i);
+        printf("%lld\n", cal(str1));
+    }*/
+    return 0;
+}
+
+</pre>
+
+<h2 id="1074-LSZ的雪地脚印"><a href="#1074-LSZ的雪地脚印" class="headerlink" title="1074.LSZ的雪地脚印"></a>1074.LSZ的雪地脚印</h2><p><a href="https://acm.sjtu.edu.cn/OnlineJudge/problem/1074" target="_blank" rel="noopener">1074</a></p>
+<h3 id="题目大意-14"><a href="#题目大意-14" class="headerlink" title="题目大意"></a>题目大意</h3><p>给定矩阵内有0，1点。求面积最大的2：1子矩阵，使得子矩阵内不含1。</p>
+<h3 id="题解-14"><a href="#题解-14" class="headerlink" title="题解"></a>题解</h3><p>二分答案，前缀和，完事。<br>应该有更好的解法吧。</p>
+<h3 id="代码-15"><a href="#代码-15" class="headerlink" title="代码"></a>代码</h3><pre style="color:White;bgcolor:Black">
+#include &lt;cstdio&gt;
+#define MAXN 1300
+inline int minn(int a, int b)
+{
+    return a &lt; b ? a : b;
+}
+int summ[MAXN][MAXN];
+char str[MAXN];
+int n, m;
+int check(int p)
+{
+    int q = (p &lt;&lt; 1);
+    for(int i = p; i &lt;= n; ++i)
+    {
+        for(int j = q; j &lt;= m; ++j)
+        {
+            if(summ[i][j] + summ[i-p][j-q] == summ[i-p][j] + summ[i][j-q])
+            {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+int main()
+{
+    scanf("%d%d", &n, &m);
+    for(int i = 1; i &lt;= n; ++i)
+    {
+        scanf("%s", str + 1);
+        for(int j = 1; j &lt;= m; ++j)
+        {
+            summ[i][j] = (str[j] == 'X') + summ[i-1][j] + summ[i][j-1] - summ[i-1][j-1];
+        }
+    }
+    int L = 0, R = minn(n, m &gt;&gt; 1), M;
+    while(L &lt;= R)
+    {
+        M = (L + R) &gt;&gt; 1;
+        if(check(M))
+        {
+            L = M + 1;
+        }
+        else
+        {
+            R = M - 1;
+        }
+    }
+    printf("%d\n", 2 * R * R);
+    return 0;
+}
+</pre>
+
+<h2 id="4028-久子的图章"><a href="#4028-久子的图章" class="headerlink" title="4028.久子的图章"></a>4028.久子的图章</h2><p><a href="https://acm.sjtu.edu.cn/OnlineJudge/problem/4028" target="_blank" rel="noopener">4028</a></p>
+<h3 id="题目大意-15"><a href="#题目大意-15" class="headerlink" title="题目大意"></a>题目大意</h3><p>参照题目描述和样例，的确不好描述</p>
+<h3 id="题解-15"><a href="#题解-15" class="headerlink" title="题解"></a>题解</h3><p>暴力模拟。<br>但是太裸的暴力还是不行。<br>我们模拟的时候只需要考虑黑点即可。<br>注意到这样一个性质，如果我们按照从上到下从左往右的顺序扫描，扫描到一个未被覆盖的<br>黑点，那么这个黑点一定只能用图章上的最上最左的黑点覆盖。</p>
+<p>下面简要说明只模拟黑点复杂度是$O(size)$ $size$为棋盘大小<br>首先扫描一遍棋盘的复杂度是$O(size)$<br>我们下面来说明模拟的次数不会超过所有黑点数:<br>模拟时如果存在某个黑点被访问两次，则直接判定不合法。<br>所以每个黑点在模拟时，至多被访问一次。</p>
+<h3 id="代码-16"><a href="#代码-16" class="headerlink" title="代码"></a>代码</h3><pre style="color:White;bgcolor:Black">
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#define MAXN 1050
+int mark[MAXN][MAXN];
+int X[MAXN*MAXN], Y[MAXN*MAXN], tot;
+void _r(int& x)
+{
+    char c = getchar();
+    while(c &lt; '0' || c &gt; '9')
+    {
+        c = getchar();
+    }
+    for(x = 0; c &gt;= '0' && c &lt;= '9'; c = getchar())
+    {
+        x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + c - '0';
+    }
+    return ;
+}
+void work()
+{
+    int n, m, u, v, nx = -1, ny = -1;
+    tot = 0;
+    _r(n);
+    _r(m);
+    _r(u);
+    _r(v);
+    for(int i = 1; i &lt;= n; ++i)
+    {
+        for(int j = 1; j &lt;= m; ++j)
+        {
+            _r(mark[i][j]);
+        }
+    }
+    for(int i = 0; i &lt; u; ++i)
+    {
+        for(int j = 0, x; j &lt; v; ++j)
+        {
+            _r(x);
+            if(x)
+            {
+                X[++tot]= i;
+                Y[tot] = j;
+                if(nx == -1)
+                {
+                    nx = i;
+                    ny = j;
+                }
+            }
+        }
+    }
+    for(int i = 1; i &lt;= n; ++i)
+    {
+        for(int j = 1; j &lt;= m; ++j)
+        {
+            if(mark[i][j] == 1)
+            {
+                if(!tot)
+                {
+                    printf("No\n");
+                    return ;
+                }
+                for(int k = 1, xx, yy; k &lt;= tot; ++k)
+                {
+                    xx = i + X[k] - nx;
+                    yy = j + Y[k] - ny;
+                    if(xx &gt; n || yy &gt; m || xx &lt; 1 || yy &lt; 1)
+                    {
+                        printf("No\n");
+                        return ;
+                    }
+                    if(mark[xx][yy] != 1)
+                    {
+                        printf("No\n");
+                        return ;
+                    }
+                    mark[xx][yy] = 2;
+                }
+            }
+        }
+    }
+    printf("Yes\n");
+    return ;
+}
+int main()
+{
+    int T;
+    _r(T);
+    for(int i = 1; i &lt;= T; ++i)
+    {
+        work();
+    }
+    return 0;
+}
+</pre>
+
+<h2 id="4208-氪金陷阱"><a href="#4208-氪金陷阱" class="headerlink" title="4208.氪金陷阱"></a>4208.氪金陷阱</h2><p><a href="https://acm.sjtu.edu.cn/OnlineJudge/problem/4208" target="_blank" rel="noopener">4208</a></p>
+<h3 id="题目大意-16"><a href="#题目大意-16" class="headerlink" title="题目大意"></a>题目大意</h3><p>不便叙述，详见题面及样例</p>
+<h3 id="题解-16"><a href="#题解-16" class="headerlink" title="题解"></a>题解</h3><p>数学题<br>在图中作出陷阱的图线，会发现是一个斜着的网格(暂时不考虑整点的离散性)<br>于是只需要判定起始点和结束点所在的网格就行。</p>
+<p>几个细节：</p>
+<ol>
+<li>判定所在网格，可以作整数除法，但注意负数取整的方向</li>
+<li>注意，最少陷阱数的路径，是尽量从两条网格线的交汇处穿过</li>
+<li>题目中的$a,b\geq2$条件，真的省去了很多麻烦事。实际上如果网格过于小，按照题中所述的上下左右的走法，是无法在不触碰边界陷阱的情况下从网格的一个顶点走到另一个相对的顶点的。但当网格足够大时，无需考虑这些琐事</li>
+</ol>
+<h3 id="代码-17"><a href="#代码-17" class="headerlink" title="代码"></a>代码</h3><pre style="color:White;bgcolor:Black">
+#include &lt;cstdio&gt;
+inline int abs(int x)
+{
+    return x &lt; 0 ? -x : x;
+}
+inline int maxn(int a, int b)
+{
+    return a &gt; b ? a : b;
+}
+int main()
+{
+    int T, a, b, x1, x2, y1, y2, p1, q1, p2, q2;
+    scanf("%d", &T);
+    for(int i = 1; i &lt;= T; ++i)
+    {
+        scanf("%d%d%d%d%d%d", &a, &b, &x1, &y1, &x2, &y2);
+        p1 = (x1 + y1) &lt; 0 ? (x1 + y1) / (a &lt;&lt; 1) - 1 : (x1 + y1) / (a &lt;&lt; 1);
+        q1 = (x1 - y1) &lt; 0 ? (x1 - y1) / (b &lt;&lt; 1) - 1 : (x1 - y1) / (b &lt;&lt; 1);
+        p2 = (x2 + y2) &lt; 0 ? (x2 + y2) / (a &lt;&lt; 1) - 1 : (x2 + y2) / (a &lt;&lt; 1);
+        q2 = (x2 - y2) &lt; 0 ? (x2 - y2) / (b &lt;&lt; 1) - 1 : (x2 - y2) / (b &lt;&lt; 1);
+        printf("%d\n", maxn(abs(p1-p2), abs(q1-q2)));
+    }
+    return 0;
+}
+</pre>
+
+<h2 id="Finished"><a href="#Finished" class="headerlink" title="Finished!"></a>Finished!</h2>
             </div>
             <hr>
 
@@ -1704,7 +2042,7 @@ int main()
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">12.7k</span>
+                <span class="white-color">14.8k</span>
             
 
             
